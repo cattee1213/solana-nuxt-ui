@@ -5,9 +5,8 @@ useHead({
 });
 const solanaVersion = ref('');
 const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-connection.getVersion().then((version) => {
-  solanaVersion.value = version['solana-core'];
-});
+const { data } = await useFetch('/api/solana-core-version');
+solanaVersion.value = data.value['solana-core'];
 
 const balance = ref(0);
 const address = ref('A5KBL6b4e9UGXzKmDzbwMqKFg2UoZg87gXUZBZaw529Z');
