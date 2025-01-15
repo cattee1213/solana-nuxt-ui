@@ -1,3 +1,5 @@
 <template>
-  <NuxtPage />
+  <n-notification-provider>
+    <NuxtPage />
+  </n-notification-provider>
 </template>

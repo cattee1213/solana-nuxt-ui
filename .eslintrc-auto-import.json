@@ -1,0 +1,9 @@
+{
+  "globals": {
+    "useDialog": true,
+    "useLoadingBar": true,
+    "useMessage": true,
+    "useNotification": true,
+    "useWallet": true
+  }
+}

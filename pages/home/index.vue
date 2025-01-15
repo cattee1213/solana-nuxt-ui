@@ -1,48 +1,72 @@
 <script setup lang="ts">
-import { clusterApiUrl, Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 useHead({
   title: 'solana-ui'
 });
+const notification = useNotification();
+const solanaWeb3 = useSolanaWeb3();
+const isLoading = ref(false);
 const solanaVersion = ref('');
-const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-const { data } = await useFetch('/api/solana-core-version');
-solanaVersion.value = data.value['solana-core'];
-
 const balance = ref(0);
-const address = ref('A5KBL6b4e9UGXzKmDzbwMqKFg2UoZg87gXUZBZaw529Z');
+const wallet = useWallet();
+
+solanaVersion.value = await solanaWeb3.getVersion();
+
 const getBalanceHandler = async () => {
-  balance.value = (await connection.getBalance(new PublicKey(address.value))) / 10 ** 9;
+  if (!wallet.publicKey.value) {
+    return false;
+  }
+  isLoading.value = true;
+  try {
+    balance.value = await solanaWeb3.getBalance(wallet.publicKey.value);
+  } catch (error: any) {
+    notification.error({
+      title: 'Error',
+      content: error.error
+    });
+  }
+  isLoading.value = false;
 };
 
 const getAirdropHandler = async () => {
-  try {
-    const signature = await connection.requestAirdrop(
-      new PublicKey(address.value),
-      LAMPORTS_PER_SOL * 5
-    );
-    const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
-    await connection.confirmTransaction({
-      blockhash,
-      lastValidBlockHeight,
-      signature
-    });
-  } catch (error) {
-    // alert(error)
-    useDialog().open(JSON.stringify(error));
+  if (!wallet.publicKey.value) {
+    return false;
   }
-
+  isLoading.value = true;
+  try {
+    await solanaWeb3.requestAirdrop(wallet.publicKey.value, 5);
+  } catch (error: any) {
+    notification.error({
+      title: 'Error',
+      content: error.message
+    });
+  }
+  isLoading.value = false;
   await getBalanceHandler();
 };
+
+// solanaWeb3.connection.onAccountChange(
+//   wallet.publicKey.value as PublicKey,
+//   (updatedAccountInfo, context) => {
+//     console.log('Updated account info: ', updatedAccountInfo);
+//   },
+
+//   'confirmed'
+// );
 </script>
 
 <template>
   <div>
     <div>solana-core version:{{ solanaVersion }}</div>
-    <div>Address:{{ address }}</div>
-    <div>balance:{{ balance }}</div>
+    <div>Address:{{ wallet.publicKey }}</div>
+    <div>balance:{{ balance / 10 ** 9 }}</div>
     <div>
-      <n-button @click="getAirdropHandler" type="primary">Airdrop 5 sol</n-button>
-      <n-button @click="getBalanceHandler" type="primary">Get Balance</n-button>
+      <n-button :loading="isLoading" @click="getAirdropHandler" type="primary"
+        >Airdrop 5 sol</n-button
+      >
+      <n-button :loading="isLoading" @click="getBalanceHandler" type="primary"
+        >Get Balance</n-button
+      >
+      <Wallet />
     </div>
   </div>
 </template>
