@@ -6,6 +6,8 @@
 </template>
 
 <script setup lang="tsx">
+import { RouterLink } from 'vue-router';
+
 const menuOptions = [
   {
     key: 'Home',
