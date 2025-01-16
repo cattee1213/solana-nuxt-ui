@@ -19,6 +19,13 @@ export default defineNuxtConfig({
     storesDirs: ['./stores/**']
   },
   vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/style/global.scss" as *;'
+        }
+      }
+    },
     plugins: [
       AutoImport({
         dts: true,
