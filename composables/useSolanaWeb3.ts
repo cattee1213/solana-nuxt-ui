@@ -1,4 +1,10 @@
-import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
+import {
+  clusterApiUrl,
+  Connection,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  Transaction
+} from '@solana/web3.js';
 
 export default () => {
   const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
@@ -53,6 +59,7 @@ export default () => {
   };
 
   return {
+    Transaction,
     connection,
     getBalance,
     getVersion,
