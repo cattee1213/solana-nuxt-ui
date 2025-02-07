@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@pinia/nuxt": "^0.9.0",
     "@solana/wallet-adapter-base": "^0.9.23",
