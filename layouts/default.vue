@@ -4,7 +4,6 @@
       <div>
         <n-menu v-model:value="currMenuKey" :options="menuOptions" mode="horizontal" />
       </div>
-      <Wallet />
     </div>
     <div class="content">
       <slot></slot>
@@ -17,18 +16,6 @@ import { RouterLink } from 'vue-router';
 const currMenuKey = ref(useRoute().name);
 
 const menuOptions = [
-  {
-    key: 'home',
-    label: () => <RouterLink to={{ path: '/home' }}>Home</RouterLink>
-  },
-  {
-    key: 'account',
-    label: () => <RouterLink to={{ path: '/account' }}>Account</RouterLink>
-  },
-  {
-    key: 'airdrop',
-    label: () => <RouterLink to={{ path: '/airdrop' }}>Airdrop</RouterLink>
-  },
   {
     key: 'transaction',
     label: () => <RouterLink to={{ path: '/transaction' }}>Transaction</RouterLink>

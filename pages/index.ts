@@ -1,3 +1,3 @@
 definePageMeta({
-  redirect: '/home'
+  redirect: '/transaction'
 });
