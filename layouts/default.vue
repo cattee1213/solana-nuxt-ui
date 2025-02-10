@@ -4,6 +4,7 @@
       <div>
         <n-menu v-model:value="currMenuKey" :options="menuOptions" mode="horizontal" />
       </div>
+      <Network />
       <Wallet />
     </div>
     <div class="content">

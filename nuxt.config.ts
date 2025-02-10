@@ -18,6 +18,16 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ['./stores/**']
   },
+  piniaPluginPersistedstate: {
+    debug: true,
+    cookieOptions: {
+      sameSite: 'strict',
+      httpOnly: false,
+      secure: false, // enable when the server have ssl cert
+      maxAge: 60 * 60 * 24 * 7 // 7 days
+    },
+    storage: 'cookies'
+  },
   vite: {
     css: {
       preprocessorOptions: {

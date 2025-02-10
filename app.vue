@@ -1,5 +1,6 @@
 <template>
-  <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides">
+  <!-- <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides"> -->
+  <n-config-provider :theme-overrides="themeOverrides">
     <n-notification-provider>
       <n-global-style />
       <NuxtLayout>
@@ -19,9 +20,6 @@ useHead({
 const themeOverrides: GlobalThemeOverrides = {
   common: {
     primaryColor: '#4f46e5'
-  },
-  Button: {
-    textColor: '#fff'
   }
 };
 </script>

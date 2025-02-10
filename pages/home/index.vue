@@ -2,19 +2,25 @@
 useHead({
   title: 'home'
 });
-const solanaWeb3 = useSolanaWeb3();
+const connection = useConnection();
 const solanaVersion = ref('');
 
-solanaVersion.value = await solanaWeb3.getVersion();
+async function getVersion() {
+  try {
+    if (connection == null) {
+      return false;
+    }
+    const version = await connection.getVersion();
+    solanaVersion.value = version['solana-core'];
+  } catch (error) {
+    throw createError('Failed to get version');
+  }
+}
 
-// solanaWeb3.connection.onAccountChange(
-//   wallet.publicKey.value as PublicKey,
-//   (updatedAccountInfo, context) => {
-//     console.log('Updated account info: ', updatedAccountInfo);
-//   },
-
-//   'confirmed'
-// );
+onMounted(async () => {
+  await getVersion();
+});
+getVersion();
 </script>
 
 <template>
