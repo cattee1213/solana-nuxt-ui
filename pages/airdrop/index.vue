@@ -10,8 +10,8 @@ const isLoading = ref(false);
 const wallet = useWallet();
 const publicKey = ref(wallet.publicKey.value || '');
 
-const tags = ref([2, 5, 10]);
-const number = ref(2);
+const tags = ref([2, 5]);
+const number = ref(5);
 
 const getAirdropHandler = async () => {
   if (!wallet.publicKey.value) {
@@ -33,6 +33,10 @@ const getAirdropHandler = async () => {
     if (txsRef.value) {
       txsRef.value.getTxsHandler();
     }
+    notification.error({
+      title: 'Success',
+      content: 'Airdrop requested successfully'
+    });
   } catch (error) {
     notification.error({
       title: 'Error',

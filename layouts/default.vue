@@ -4,8 +4,10 @@
       <div>
         <n-menu v-model:value="currMenuKey" :options="menuOptions" mode="horizontal" />
       </div>
-      <Network />
-      <Wallet />
+      <n-flex gap="10">
+        <Network />
+        <Wallet />
+      </n-flex>
     </div>
     <div class="content">
       <slot></slot>

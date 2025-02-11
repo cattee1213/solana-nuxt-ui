@@ -19,7 +19,10 @@ useHead({
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
-    primaryColor: '#4f46e5'
+    primaryColor: '#4f46e5',
+    primaryColorHover: '#4338ca',
+    primaryColorPressed: '#4338ca',
+    primaryColorSuppl: '#4338ca'
   }
 };
 </script>
